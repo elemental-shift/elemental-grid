@@ -106,7 +106,7 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 	}
 }
 
-// Sets single column and determins the offset distance and direction.
+// Used to order columns right-to-left. Sets single column and determins the offset distance and direction.
 //
 // $span: default 1; Determins the width of the column;
 // $type: default none; has three available options
