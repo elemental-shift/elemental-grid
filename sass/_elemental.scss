@@ -1,0 +1,54 @@
+// Elemental Grid System ( https://github.com/elemental-shift/elemental.gs )
+// Compatible with SASS: http://sass-lang.com/
+//
+// Created by Jeremy Cloutier
+
+
+$columns: 12; //total number of columns to use
+$gutter: 3%; // gutter width can be any unit
+$column_width: 5.3333%; // column width can be any unit
+
+// calculated total width
+$total_width: $columns * ($gutter + $column_width);
+
+// Sub-pixel fix for IE http://tylertate.com/blog/2012/01/05/subpixel-rounding.html
+// min width in pixels, do not append px to the number.
+$min_width: 480;
+$ie_correction: (.5 / $min_width) * 100 * 1%;
+
+@function width($columns:$columns) {
+	@return ($columns * $gutter) + ($columns * $column_width);
+}
+
+// calculate width of a column based on it's span.
+@function span( $span ) {
+	@return ( $span * $column_width ) + ( $gutter * ( $span - 1 ) );
+}
+
+// micro clearfix hack 
+// http://nicolasgallagher.com/micro-clearfix-hack/
+@mixin clearfix {
+	&:before,
+	&:after {
+		content: "";
+		display: table;
+	}
+	&:after {
+		clear: both;
+	}
+	*zoom:1;
+}
+
+// Sets up a container for individual columns
+//
+// $nested: defaults true; If true it sets a negative margin to allow 
+// nested columns to appear even with parents.
+@mixin row( $columns:$columns ) {
+	display: block;
+	width: $total_width * (($gutter + 1 + width($columns)) / width($columns));
+	margin: 0 $total_width*(((($gutter + 1) * .5) / width( $columns ))*-1);
+	*width: ($total_width * (($gutter + width($columns)) / width($columns))) - $ie_correction;
+	*margin: 0 ($total_width*((($gutter * .5) / width( $columns ))*-1)) + $ie_correction;
+	@include clearfix;	
+}
+

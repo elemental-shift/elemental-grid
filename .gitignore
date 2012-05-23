@@ -1,0 +1,4 @@
+.sass-cache
+*.rb
+*.html
+stylesheets/
