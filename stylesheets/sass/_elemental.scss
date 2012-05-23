@@ -19,21 +19,21 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 
 // calculate width of a column based on it's span.
 @function width( $span ) {
-	@return ( $span * $column_width ) + ( $gutter * ( $span - 1 ) );
+        @return ( $span * $column_width ) + ( $gutter * ( $span - 1 ) );
 }
 
 // micro clearfix hack 
 // http://nicolasgallagher.com/micro-clearfix-hack/
 @mixin clearfix {
-	&:before,
-	&:after {
-		content: "";
-		display: table;
-	}
-	&:after {
-		clear: both;
-	}
-	*zoom:1;
+        &:before,
+        &:after {
+                content: "";
+                display: table;
+        }
+        &:after {
+                clear: both;
+        }
+        *zoom:1;
 }
 
 // Sets up a container for individual columns
@@ -41,12 +41,12 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 // $nested: defaults true; If true it sets a negative margin to allow 
 // nested columns to appear even with parents.
 @mixin row( $nested:true ) {
-	display: block;
-	@if $nested == true {
-		margin-left: -#{$gutter / 2};
-		margin-right: -#{$gutter / 2};
-	}
-	@include clearfix;	
+        display: block;
+        @if $nested == true {
+                margin-left: -#{$gutter / 2};
+                margin-right: -#{$gutter / 2};
+        }
+        @include clearfix;	
 }
 
 // Sets single column and determins the offset distance and direction.
@@ -61,50 +61,50 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 // $last: default false; if true the column will be floated to the right; 
 
 @mixin column( $span: 1, $type: none, $offset: 0, $last:false ) {
-	@if $type == none {
-		@if $last == true {
-			float: right;
-		} @else {
-			float: left;
-		}
-		width: width( $span );
-		margin: 0 $gutter / 2;
-		*width: width($span) - $ie_correction;
-		*margin: 0 (( $gutter / 2 ) - $ie_correction );
-		&:last-child {
-			float: right;	
-		}
-	} @else if $type == push {
-		@if $last == true {
-			float: right;
-		} @else {
-			float: left;
-		}
-		width: width( $span );
-		margin: 0 ( $gutter / 2 ) 0 ( width( $offset ) + ( $gutter * 1.5 ) );
-		*width: width( $span ) - $ie_correction;
-		*margin: 0 ( ( $gutter / 2 ) - $ie_correction ) 0 ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction );
-		&:last-child {
-			float: right;	
-		}
-	} @else if $type == pull {
-		@if $last == true {
-			float: right;
-		} @else {
-			float: left;
-		}
-		width: width( $span );
-		margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) ) 0 ( $gutter / 2 );
-		*width: width( $span ) - $ie_correction;
-		*margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction ) 0 ( ( $gutter / 2 ) - $ie_correction );
-		&:last-child {
-			float: right;	
-		}
-	} @else if $type == center {
-		diplay: block;
-		width: width( $span );
-		margin: 0 auto;	
-	}
+        @if $type == none {
+                @if $last == true {
+                        float: right;
+                } @else {
+                        float: left;
+                }
+                width: width( $span );
+                margin: 0 $gutter / 2;
+                *width: width($span) - $ie_correction;
+                *margin: 0 (( $gutter / 2 ) - $ie_correction );
+                &:last-child {
+                        float: right;	
+                }
+        } @else if $type == push {
+                @if $last == true {
+                        float: right;
+                } @else {
+                        float: left;
+                }
+                width: width( $span );
+                margin: 0 ( $gutter / 2 ) 0 ( width( $offset ) + ( $gutter * 1.5 ) );
+                *width: width( $span ) - $ie_correction;
+                *margin: 0 ( ( $gutter / 2 ) - $ie_correction ) 0 ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction );
+                &:last-child {
+                        float: right;	
+                }
+        } @else if $type == pull {
+                @if $last == true {
+                        float: right;
+                } @else {
+                        float: left;
+                }
+                width: width( $span );
+                margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) ) 0 ( $gutter / 2 );
+                *width: width( $span ) - $ie_correction;
+                *margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction ) 0 ( ( $gutter / 2 ) - $ie_correction );
+                &:last-child {
+                        float: right;	
+                }
+        } @else if $type == center {
+                diplay: block;
+                width: width( $span );
+                margin: 0 auto;	
+        }
 }
 
 // Used to order columns right-to-left. Sets single column and determins the offset distance and direction.
@@ -119,50 +119,50 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 // $last: default false; if true the column will be floated to the right; 
 
 @mixin column_right( $span: 1, $type: none, $offset: 0, $last:false ) {
-	@if $type == none {
-		@if $last == true {
-			float: left;
-		} @else {
-			float: right;
-		}
-		width: width( $span );
-		margin: 0 $gutter / 2;
-		*width: width($span) - $ie_correction;
-		*margin: 0 (( $gutter / 2 ) - $ie_correction );
-		&:last-child {
-			float: left;	
-		}
-	} @else if $type == push {
-		@if $last == true {
-			float: left;
-		} @else {
-			float: right;
-		}
-		width: width( $span );
-		margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) ) 0 ( ( $gutter / 2 ) - $ie_correction );
-		*width: width( $span ) - $ie_correction;
-		*margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction ) 0 ( $gutter / 2 );
-		&:last-child {
-			float: left;	
-		}
-	} @else if $type == pull {
-		@if $last == true {
-			float: left;
-		} @else {
-			float: right;
-		}
-		width: width( $span );
-		margin: 0 ( $gutter / 2 ) 0 ( width( $offset ) + ( $gutter * 1.5 ) );
-		*width: width( $span ) - $ie_correction;
-		*margin: 0 ( ( $gutter / 2 ) - $ie_correction ) 0 ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction );
-		&:last-child {
-			float: left;	
-		}
-	} @else if $type == center {
-		diplay: block;
-		width: width( $span );
-		margin: 0 auto;	
-	}
+        @if $type == none {
+                @if $last == true {
+                        float: left;
+                } @else {
+                        float: right;
+                }
+                width: width( $span );
+                margin: 0 $gutter / 2;
+                *width: width($span) - $ie_correction;
+                *margin: 0 (( $gutter / 2 ) - $ie_correction );
+                &:last-child {
+                        float: left;	
+                }
+        } @else if $type == push {
+                @if $last == true {
+                        float: left;
+                } @else {
+                        float: right;
+                }
+                width: width( $span );
+                margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) ) 0 ( ( $gutter / 2 ) - $ie_correction );
+                *width: width( $span ) - $ie_correction;
+                *margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction ) 0 ( $gutter / 2 );
+                &:last-child {
+                        float: left;	
+                }
+        } @else if $type == pull {
+                @if $last == true {
+                        float: left;
+                } @else {
+                        float: right;
+                }
+                width: width( $span );
+                margin: 0 ( $gutter / 2 ) 0 ( width( $offset ) + ( $gutter * 1.5 ) );
+                *width: width( $span ) - $ie_correction;
+                *margin: 0 ( ( $gutter / 2 ) - $ie_correction ) 0 ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction );
+                &:last-child {
+                        float: left;	
+                }
+        } @else if $type == center {
+                diplay: block;
+                width: width( $span );
+                margin: 0 auto;	
+        }
 }
 
 
@@ -174,19 +174,19 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 // $margin: default $gutter variable; sets margin between each item
 // $element: default li; defines the type element to target
 @mixin grid( $width:4, $margin:$gutter, $element:li ) {
-	@include clearfix;
-	overflow: hidden;
-	margin-left: -#{$margin};
-	clear: both;
-	& > #{$element} {
-		float: left;
-		display: block;
-		width: ( $total_width / $width ) - $margin;
-		margin: 0 0 $margin $margin;
-		*width: ( $total_width / $width ) - $margin - $ie_correction;
-		*margin: 0 0 ( $margin - $ie_correction ) ( $margin - $ie_correction );
-		&:nth-child( #{$width}n + #{$width}) {
-			float: right;
-		}
-	}
+        @include clearfix;
+        overflow: hidden;
+        margin-left: -#{$margin};
+        clear: both;
+        & > #{$element} {
+                float: left;
+                display: block;
+                width: ( $total_width / $width ) - $margin;
+                margin: 0 0 $margin $margin;
+                *width: ( $total_width / $width ) - $margin - $ie_correction;
+                *margin: 0 0 ( $margin - $ie_correction ) ( $margin - $ie_correction );
+                &:nth-child( #{$width}n + #{$width}) {
+                        float: right;
+                }
+        }
 }
