@@ -3,7 +3,7 @@ The Elemental Grid  System allows for the creation of a flexible grid system wit
 
 It is possible to order columns from right-to-left or left-to-right.
 
-It currently only supports [SASS](http://http://sass-lang.com/), however, a LESS implementation is planned.
+It currently only supports [SASS](http://http://sass-lang.com/).
 
 #Created By
 [Jeremy Cloutier](http://twitter.com/elevenStx)
