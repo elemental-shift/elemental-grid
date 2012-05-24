@@ -40,12 +40,13 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 //
 // $nested: defaults true; If true it sets a negative margin to allow 
 // nested columns to appear even with parents.
-@mixin row($x:$columns) {
+@mixin row() {
         display: block;
-		width: 103%;
-		margin: 0 ($gutter / 2) * -1;
-		*margin: 0 (($gutter / 2) - $ie_correction) * -1;
-        @include clearfix;	
+        width: $total_width*(($gutter + width($x))/width($columns));
+        margin: 0 $total_width*((($gutter*.5)/width($columns))*-1);
+        *width: $total_width*(($gutter + width($x))/width($columns)) - $ie_correction;
+        *margin: 0 ($total_width*((($gutter*.5)/width($columns))*-1)) - $ie_correction;
+        @include clearfix;		
 }
 
 // Sets single column and determins the offset distance and direction.
@@ -61,14 +62,14 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 
 @mixin column( $span: 1, $type: none, $offset: 0, $last:false ) {
         @if $last == true {
-                        float: right;
-		} @else {
-                        float: left;
-		}
-		width: width( $span );
-		*width: width($span) - $ie_correction;
-		@if $type == none {
-                margin: $gutter / 2;
+                float: right;
+        } @else {
+                float: left;
+        }
+        width: width( $span );
+        *width: width($span) - $ie_correction;
+        @if $type == none {
+                margin: 0 $gutter / 2;
                 *margin: 0 (( $gutter / 2 ) - $ie_correction );
         } @else if $type == push {
                 margin: 0 ( $gutter / 2 ) 0 ( width( $offset ) + ( $gutter * 1.5 ) );
@@ -96,18 +97,18 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 // $last: default false; if true the column will be floated to the right; 
 
 @mixin column_right( $span: 1, $type: none, $offset: 0, $last:false ) {
-		@if $last == true {
-                        float: left;
-		} @else {
-                        float: right;
-		}
-		width: width( $span );
-		*width: width($span) - $ie_correction;
+        @if $last == true {
+                float: left;
+        } @else {
+                float: right;
+        }
+        width: width( $span );
+        *width: width($span) - $ie_correction;
         @if $type == none {
                 margin: 0 $gutter / 2;
                 *margin: 0 (( $gutter / 2 ) - $ie_correction ) 0 (( $gutter / 2 ) - $ie_correction );
         } @else if $type == push {
-                margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) ) 0 ( ( $gutter / 2 ) ;
+                margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) ) 0 ( $gutter / 2 ) ;
                 *margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction ) 0 ( $gutter / 2 );
         } @else if $type == pull {
                 margin: 0 ( $gutter / 2 ) 0 ( width( $offset ) + ( $gutter * 1.5 ) );
