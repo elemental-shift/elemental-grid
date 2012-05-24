@@ -42,9 +42,9 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 // nested columns to appear even with parents.
 @mixin row() {
         display: block;
-        width: $total_width*(($gutter + width($x))/width($columns));
+        width: $total_width*(($gutter + width($columns))/width($columns));
         margin: 0 $total_width*((($gutter*.5)/width($columns))*-1);
-        *width: $total_width*(($gutter + width($x))/width($columns)) - $ie_correction;
+        *width: $total_width*(($gutter + width($columns))/width($columns)) - $ie_correction;
         *margin: 0 ($total_width*((($gutter*.5)/width($columns))*-1)) - $ie_correction;
         @include clearfix;		
 }
