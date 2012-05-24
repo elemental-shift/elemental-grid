@@ -9,4 +9,4 @@ It currently only supports [SASS](http://http://sass-lang.com/).
 [Jeremy Cloutier](http://twitter.com/elevenStx)
 
 #License
-[Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
+[Apache 2.0](http://github.com/elemental-shift/elemental.gs/blob/master/license.txt)
