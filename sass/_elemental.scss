@@ -68,20 +68,14 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 		width: width( $span );
 		*width: width($span) - $ie_correction;
 		@if $type == none {
-                margin-right: $gutter / 2;
-                margin-left: $gutter / 2;
-                *margin-right: (( $gutter / 2 ) - $ie_correction );
-                *margin-left: (( $gutter / 2 ) - $ie_correction );
+                margin: $gutter / 2;
+                *margin: 0 (( $gutter / 2 ) - $ie_correction );
         } @else if $type == push {
-                margin-right: ( $gutter / 2 );
-                margin-left: ( width( $offset ) + ( $gutter * 1.5 ) );
-                *margin-right: ( ( $gutter / 2 ) - $ie_correction );
-                *margin-left: ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction );
+                margin: 0 ( $gutter / 2 ) 0 ( width( $offset ) + ( $gutter * 1.5 ) );
+                *margin: 0 ( ( $gutter / 2 ) - $ie_correction ) 0 ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction );
         } @else if $type == pull {
-                margin-right: ( width( $offset ) + ( $gutter * 1.5 ) );
-                margin-left: ( $gutter / 2 );
-                *margin-right: ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction );
-                *margin-left: ( ( $gutter / 2 ) - $ie_correction );
+                margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) ) 0 ( $gutter / 2 );
+                *margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction ) 0 ( ( $gutter / 2 ) - $ie_correction );
         } @else if $type == center {
                 diplay: block;
                 width: width( $span );
@@ -110,15 +104,11 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 		width: width( $span );
 		*width: width($span) - $ie_correction;
         @if $type == none {
-                margin-right: $gutter / 2;
-                margin-left: $gutter / 2;
-                *margin-right: (( $gutter / 2 ) - $ie_correction );
-                *margin-left: (( $gutter / 2 ) - $ie_correction );
+                margin: 0 $gutter / 2;
+                *margin: 0 (( $gutter / 2 ) - $ie_correction ) 0 (( $gutter / 2 ) - $ie_correction );
         } @else if $type == push {
-                margin-right: ( width( $offset ) + ( $gutter * 1.5 ) );
-                margin-left: ( ( $gutter / 2 ) - $ie_correction );
-                *margin-right: ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction );
-                *margin-left: ( $gutter / 2 );
+                margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) ) 0 ( ( $gutter / 2 ) ;
+                *margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction ) 0 ( $gutter / 2 );
         } @else if $type == pull {
                 margin: 0 ( $gutter / 2 ) 0 ( width( $offset ) + ( $gutter * 1.5 ) );
                 *margin: 0 ( ( $gutter / 2 ) - $ie_correction ) 0 ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction );
