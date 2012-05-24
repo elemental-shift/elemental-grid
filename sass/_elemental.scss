@@ -4,10 +4,11 @@
 // Created by Jeremy Cloutier
 
 
-$columns: 12; 
-$gutter: 3%;
-$column_width: 5.3333%;
+$columns: 12; //total number of columns to use
+$gutter: 3%; // gutter width can be any unit
+$column_width: 5.3333%; // column width can be any unit
 
+// calculated total width
 $total_width: $columns * ($gutter + $column_width);
 
 // Sub-pixel fix for IE http://tylertate.com/blog/2012/01/05/subpixel-rounding.html
@@ -36,10 +37,14 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 }
 
 // Sets up a container for individual columns
-@mixin row() {
+//
+// $nested: defaults true; If true it sets a negative margin to allow 
+// nested columns to appear even with parents.
+@mixin row($x:$columns) {
         display: block;
-                margin: 0 ($gutter / 2) * -1;
-                *margin: 0 (($gutter / 2) - $ie_correction) * -1;
+		width: 103%;
+		margin: 0 ($gutter / 2) * -1;
+		*margin: 0 (($gutter / 2) - $ie_correction) * -1;
         @include clearfix;	
 }
 
@@ -57,20 +62,26 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 @mixin column( $span: 1, $type: none, $offset: 0, $last:false ) {
         @if $last == true {
                         float: right;
-                } @else {
+		} @else {
                         float: left;
-                }
-                width: width( $span );
-                *width: width($span) - $ie_correction;
-        @if $type == none {
-                margin: 0 $gutter / 2;
-                *margin: 0 (( $gutter / 2 ) - $ie_correction );
+		}
+		width: width( $span );
+		*width: width($span) - $ie_correction;
+		@if $type == none {
+                margin-right: $gutter / 2;
+                margin-left: $gutter / 2;
+                *margin-right: (( $gutter / 2 ) - $ie_correction );
+                *margin-left: (( $gutter / 2 ) - $ie_correction );
         } @else if $type == push {
-                margin: 0 ( $gutter / 2 ) 0 ( width( $offset ) + ( $gutter * 1.5 ) );
-                *margin: 0 ( ( $gutter / 2 ) - $ie_correction ) 0 ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction );
+                margin-right: ( $gutter / 2 );
+                margin-left: ( width( $offset ) + ( $gutter * 1.5 ) );
+                *margin-right: ( ( $gutter / 2 ) - $ie_correction );
+                *margin-left: ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction );
         } @else if $type == pull {
-                margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) ) 0 ( $gutter / 2 );
-                *margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction ) 0 ( ( $gutter / 2 ) - $ie_correction );
+                margin-right: ( width( $offset ) + ( $gutter * 1.5 ) );
+                margin-left: ( $gutter / 2 );
+                *margin-right: ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction );
+                *margin-left: ( ( $gutter / 2 ) - $ie_correction );
         } @else if $type == center {
                 diplay: block;
                 width: width( $span );
@@ -91,19 +102,23 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 // $last: default false; if true the column will be floated to the right; 
 
 @mixin column_right( $span: 1, $type: none, $offset: 0, $last:false ) {
-                @if $last == true {
+		@if $last == true {
                         float: left;
-                } @else {
+		} @else {
                         float: right;
-                }
-                width: width( $span );
-                *width: width($span) - $ie_correction;
+		}
+		width: width( $span );
+		*width: width($span) - $ie_correction;
         @if $type == none {
-                margin: 0 $gutter / 2;
-                *margin: 0 (( $gutter / 2 ) - $ie_correction );
+                margin-right: $gutter / 2;
+                margin-left: $gutter / 2;
+                *margin-right: (( $gutter / 2 ) - $ie_correction );
+                *margin-left: (( $gutter / 2 ) - $ie_correction );
         } @else if $type == push {
-                margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) ) 0 ( ( $gutter / 2 ) - $ie_correction );
-                *margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction ) 0 ( $gutter / 2 );
+                margin-right: ( width( $offset ) + ( $gutter * 1.5 ) );
+                margin-left: ( ( $gutter / 2 ) - $ie_correction );
+                *margin-right: ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction );
+                *margin-left: ( $gutter / 2 );
         } @else if $type == pull {
                 margin: 0 ( $gutter / 2 ) 0 ( width( $offset ) + ( $gutter * 1.5 ) );
                 *margin: 0 ( ( $gutter / 2 ) - $ie_correction ) 0 ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction );
