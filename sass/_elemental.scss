@@ -1,4 +1,4 @@
-// Elemental Grid System ( https://github.com/elemental-shift/elemental.gs )
+// Elemental Grid System
 // Compatible with SASS: http://sass-lang.com/
 //
 // Created by Jeremy Cloutier
@@ -16,39 +16,131 @@ $total_width: $columns * ($gutter + $column_width);
 $min_width: 480;
 $ie_correction: (.5 / $min_width) * 100 * 1%;
 
-@function width($columns:$columns) {
-	@return ($columns * $gutter) + ($columns * $column_width);
-}
 
 // calculate width of a column based on it's span.
-@function span( $span ) {
-	@return ( $span * $column_width ) + ( $gutter * ( $span - 1 ) );
+@function width( $span ) {
+        @return ( $span * $column_width ) + ( $gutter * ( $span - 1 ) );
 }
 
 // micro clearfix hack 
 // http://nicolasgallagher.com/micro-clearfix-hack/
 @mixin clearfix {
-	&:before,
-	&:after {
-		content: "";
-		display: table;
-	}
-	&:after {
-		clear: both;
-	}
-	*zoom:1;
+        &:before,
+        &:after {
+                content: "";
+                display: table;
+        }
+        &:after {
+                clear: both;
+        }
+        *zoom:1;
 }
 
 // Sets up a container for individual columns
 //
 // $nested: defaults true; If true it sets a negative margin to allow 
 // nested columns to appear even with parents.
-@mixin row( $columns:$columns ) {
-	display: block;
-	width: $total_width * (($gutter + 1 + width($columns)) / width($columns));
-	margin: 0 $total_width*(((($gutter + 1) * .5) / width( $columns ))*-1);
-	*width: ($total_width * (($gutter + width($columns)) / width($columns))) - $ie_correction;
-	*margin: 0 ($total_width*((($gutter * .5) / width( $columns ))*-1)) + $ie_correction;
-	@include clearfix;	
+@mixin row() {
+        display: block;
+		margin: 0 ($gutter / 2) * -1;
+		*margin: 0 (($gutter / 2) - $ie_correction) * -1;
+        @include clearfix;	
 }
 
+// Sets single column and determins the offset distance and direction.
+//
+// $span: default 1; Determins the width of the column;
+// $type: default none; has three available options
+// 		  push: pushes column to the right by the specified amount of columns
+//		  pull: pulls a column to the left by a specified amount of columns
+//		  center: centers a column of the desired size in the container
+//
+// $offset: default 0; determines the amount by which push and pull offset the column
+// $last: default false; if true the column will be floated to the right; 
+
+@mixin column( $span: 1, $type: none, $offset: 0, $last:false ) {
+        @if $last == true {
+				float: right;
+		} @else {
+				float: left;
+		}
+		width: width( $span );
+		*width: width($span) - $ie_correction;
+		@if $type == none {
+                margin: 0 $gutter / 2;
+                *margin: 0 (( $gutter / 2 ) - $ie_correction );
+        } @else if $type == push {
+                margin: 0 ( $gutter / 2 ) 0 ( width( $offset ) + ( $gutter * 1.5 ) );
+                *margin: 0 ( ( $gutter / 2 ) - $ie_correction ) 0 ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction );
+        } @else if $type == pull {
+                margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) ) 0 ( $gutter / 2 );
+                *margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction ) 0 ( ( $gutter / 2 ) - $ie_correction );
+        } @else if $type == center {
+                diplay: block;
+                width: width( $span );
+                margin: 0 auto;	
+				float: none !important;
+        }
+}
+
+// Used to order columns right-to-left. Sets single column and determins the offset distance and direction.
+//
+// $span: default 1; Determins the width of the column;
+// $type: default none; has three available options
+// 		  push: pushes column to the right by the specified amount of columns
+//		  pull: pulls a column to the left by a specified amount of columns
+//		  center: centers a column of the desired size in the container
+//
+// $offset: default 0; determines the amount by which push and pull offset the column
+// $last: default false; if true the column will be floated to the right; 
+
+@mixin column_right( $span: 1, $type: none, $offset: 0, $last:false ) {
+		@if $last == true {
+				float: left;
+		} @else {
+				float: right;
+		}
+		width: width( $span );
+		*width: width($span) - $ie_correction;
+        @if $type == none {
+                margin: 0 $gutter / 2;
+                *margin: 0 (( $gutter / 2 ) - $ie_correction );
+        } @else if $type == push {
+                margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) ) 0 ( ( $gutter / 2 ) - $ie_correction );
+                *margin: 0 ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction ) 0 ( $gutter / 2 );
+        } @else if $type == pull {
+                margin: 0 ( $gutter / 2 ) 0 ( width( $offset ) + ( $gutter * 1.5 ) );
+                *margin: 0 ( ( $gutter / 2 ) - $ie_correction ) 0 ( width( $offset ) + ( $gutter * 1.5 ) - $ie_correction );
+        } @else if $type == center {
+                diplay: block;
+                width: width( $span );
+                margin: 0 auto;	
+				float: none !important;
+        }
+}
+
+
+// Creates a grid from an elements children. By default it is designed to work
+// on a unordered list, but it can work with any element type chosed by the 
+// $element variable.
+//
+// $width: default 4; defines with amount of elemeents per row
+// $margin: default $gutter variable; sets margin between each item
+// $element: default li; defines the type element to target
+@mixin grid( $width:4, $margin:$gutter, $element:li ) {
+        @include clearfix;
+        overflow: hidden;
+        margin-left: -#{$margin};
+        clear: both;
+        & > #{$element} {
+                float: left;
+                display: block;
+                width: ( $total_width / $width ) - $margin;
+                margin: 0 0 $margin $margin;
+                *width: ( $total_width / $width ) - $margin - $ie_correction;
+                *margin: 0 0 ( $margin - $ie_correction ) ( $margin - $ie_correction );
+                &:nth-child( #{$width}n + #{$width}) {
+                        float: right;
+                }
+        }
+}
