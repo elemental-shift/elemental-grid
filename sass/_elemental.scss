@@ -42,8 +42,8 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 // nested columns to appear even with parents.
 @mixin row() {
         display: block;
-		margin: 0 ($gutter / 2) * -1;
-		*margin: 0 (($gutter / 2) - $ie_correction) * -1;
+                margin: 0 ($gutter / 2) * -1;
+                *margin: 0 (($gutter / 2) - $ie_correction) * -1;
         @include clearfix;	
 }
 
@@ -60,13 +60,13 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 
 @mixin column( $span: 1, $type: none, $offset: 0, $last:false ) {
         @if $last == true {
-				float: right;
-		} @else {
-				float: left;
-		}
-		width: width( $span );
-		*width: width($span) - $ie_correction;
-		@if $type == none {
+                        float: right;
+                } @else {
+                        float: left;
+                }
+                width: width( $span );
+                *width: width($span) - $ie_correction;
+                @if $type == none {
                 margin: 0 $gutter / 2;
                 *margin: 0 (( $gutter / 2 ) - $ie_correction );
         } @else if $type == push {
@@ -79,7 +79,7 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
                 diplay: block;
                 width: width( $span );
                 margin: 0 auto;	
-				float: none !important;
+                float: none !important;
         }
 }
 
@@ -95,13 +95,13 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 // $last: default false; if true the column will be floated to the right; 
 
 @mixin column_right( $span: 1, $type: none, $offset: 0, $last:false ) {
-		@if $last == true {
-				float: left;
-		} @else {
-				float: right;
-		}
-		width: width( $span );
-		*width: width($span) - $ie_correction;
+                @if $last == true {
+                        float: left;
+                } @else {
+                        float: right;
+                }
+                width: width( $span );
+                *width: width($span) - $ie_correction;
         @if $type == none {
                 margin: 0 $gutter / 2;
                 *margin: 0 (( $gutter / 2 ) - $ie_correction );
@@ -115,7 +115,7 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
                 diplay: block;
                 width: width( $span );
                 margin: 0 auto;	
-				float: none !important;
+                float: none !important;
         }
 }
 
