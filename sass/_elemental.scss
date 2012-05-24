@@ -4,11 +4,10 @@
 // Created by Jeremy Cloutier
 
 
-$columns: 12; //total number of columns to use
-$gutter: 3%; // gutter width can be any unit
-$column_width: 5.3333%; // column width can be any unit
+$columns: 12; 
+$gutter: 3%;
+$column_width: 5.3333%;
 
-// calculated total width
 $total_width: $columns * ($gutter + $column_width);
 
 // Sub-pixel fix for IE http://tylertate.com/blog/2012/01/05/subpixel-rounding.html
@@ -37,9 +36,6 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 }
 
 // Sets up a container for individual columns
-//
-// $nested: defaults true; If true it sets a negative margin to allow 
-// nested columns to appear even with parents.
 @mixin row() {
         display: block;
                 margin: 0 ($gutter / 2) * -1;
@@ -66,7 +62,7 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
                 }
                 width: width( $span );
                 *width: width($span) - $ie_correction;
-                @if $type == none {
+        @if $type == none {
                 margin: 0 $gutter / 2;
                 *margin: 0 (( $gutter / 2 ) - $ie_correction );
         } @else if $type == push {
