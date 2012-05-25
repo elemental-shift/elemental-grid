@@ -37,9 +37,6 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 }
 
 // Sets up a container for individual columns
-//
-// $nested: defaults true; If true it sets a negative margin to allow 
-// nested columns to appear even with parents.
 @mixin row() {
         display: block;
         width: $total_width*(($gutter + width($columns))/width($columns));
