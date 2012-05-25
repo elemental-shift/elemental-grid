@@ -1,12 +1,6 @@
-// Elemental Grid System
-// Compatible with SASS: http://sass-lang.com/
-//
-// Created by Jeremy Cloutier
-
-
 $columns: 12; //total number of columns to use
 $gutter: 3%; // gutter width can be any unit
-$column_width: 5.3333%; // column width can be any unit
+$column_width: 5.33333333333333%; // column width can be any unit
 
 // calculated total width
 $total_width: $columns * ($gutter + $column_width);
@@ -37,15 +31,13 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 }
 
 // Sets up a container for individual columns
-//
-// $nested: defaults true; If true it sets a negative margin to allow 
-// nested columns to appear even with parents.
+// row width and margin calculation based on Tyler Tate's Semantic.gs
 @mixin row() {
         display: block;
-        width: $total_width*(($gutter + width($columns))/width($columns));
-        margin: 0 $total_width*((($gutter*.5)/width($columns))*-1);
-        *width: $total_width*(($gutter + width($columns))/width($columns)) - $ie_correction;
-        *margin: 0 ($total_width*((($gutter*.5)/width($columns))*-1)) - $ie_correction;
+        width: $total_width*(($gutter + $total_width)/$total_width);
+        margin: 0 $total_width*((($gutter*.5)/$total_width)*-1);
+        *width: $total_width*(($gutter + $total_width)/$total_width) - $ie_correction;
+        *margin: 0 ($total_width*((($gutter*.5)/$total_width)*-1)) - $ie_correction;
         @include clearfix;		
 }
 
