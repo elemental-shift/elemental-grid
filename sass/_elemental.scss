@@ -31,10 +31,8 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 }
 
 // Sets up a container for individual columns
-<<<<<<< HEAD
 // row width and margin calculation based on Tyler Tate's Semantic.gs
 =======
->>>>>>> 0ab3f219559fbae0325f6432d073e3249165b13a
 @mixin row() {
         display: block;
         width: $total_width*(($gutter + $total_width)/$total_width);
