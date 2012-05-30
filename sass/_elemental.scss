@@ -38,7 +38,7 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
         margin: 0 $total_width*((($gutter*.5)/$total_width)*-1);
         *width: $total_width*(($gutter + $total_width)/$total_width) - $ie_correction;
         *margin: 0 ($total_width*((($gutter*.5)/$total_width)*-1)) - $ie_correction;
-        @include clearfix;		
+        @include clearfix;
 }
 
 // Sets single column and determins the offset distance and direction.
@@ -50,7 +50,7 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 //		  center: centers a column of the desired size in the container
 //
 // $offset: default 0; determines the amount by which push and pull offset the column
-// $last: default false; if true the column will be floated to the right; 
+// $last: default false; if true the column will be floated to the right;
 
 @mixin column( $span: 1, $type: none, $offset: 0, $last:false ) {
         @if $last == true {
@@ -72,7 +72,7 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
         } @else if $type == center {
                 diplay: block;
                 width: width( $span );
-                margin: 0 auto;	
+                margin: 0 auto;
                 float: none !important;
         }
 }
@@ -81,12 +81,12 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 //
 // $span: default 1; Determins the width of the column;
 // $type: default none; has three available options
-// 		  push: pushes column to the right by the specified amount of columns
-//		  pull: pulls a column to the left by a specified amount of columns
+// 		  push: pushes column to the left by the specified amount of columns
+//		  pull: pulls a column to the right by a specified amount of columns
 //		  center: centers a column of the desired size in the container
 //
 // $offset: default 0; determines the amount by which push and pull offset the column
-// $last: default false; if true the column will be floated to the right; 
+// $last: default false; if true the column will be floated to the left
 
 @mixin column_right( $span: 1, $type: none, $offset: 0, $last:false ) {
         @if $last == true {
@@ -108,14 +108,14 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
         } @else if $type == center {
                 diplay: block;
                 width: width( $span );
-                margin: 0 auto;	
+                margin: 0 auto;
                 float: none !important;
         }
 }
 
 
 // Creates a grid from an elements children. By default it is designed to work
-// on a unordered list, but it can work with any element type chosed by the 
+// on a unordered list, but it can work with any element type chosed by the
 // $element variable.
 //
 // $width: default 4; defines with amount of elemeents per row

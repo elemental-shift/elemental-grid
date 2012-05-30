@@ -2,3 +2,4 @@
 *.rb
 *.html
 stylesheets/
+.project
