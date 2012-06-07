@@ -47,9 +47,9 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 //
 // $span: default 1; Determins the width of the column;
 // $type: default none; has three available options
-// 		  push: pushes column to the right by the specified amount of columns
-//		  pull: pulls a column to the left by a specified amount of columns
-//		  center: centers a column of the desired size in the container
+//                push: pushes column to the right by the specified amount of columns
+//                pull: pulls a column to the left by a specified amount of columns
+//                center: centers a column of the desired size in the container
 //
 // $offset: default 0; determines the amount by which push and pull offset the column
 // $last: default false; if true the column will be floated to the right;
@@ -63,10 +63,10 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
     width: width( $span );
     *width: width($span) - $ie_correction;
     @if $type == none {
-        margin-right: 0 $gutter / 2;
-        margin-left: 0 $gutter / 2;
-        *margin-right: 0 (( $gutter / 2 ) - $ie_correction );
-        *margin-left: 0 (( $gutter / 2 ) - $ie_correction );
+        margin-right: $gutter / 2;
+        margin-left: $gutter / 2;
+        *margin-right: (( $gutter / 2 ) - $ie_correction );
+        *margin-left: (( $gutter / 2 ) - $ie_correction );
     } @else if $type == push {
         margin-right: ( $gutter / 2 );
         margin-left: ( width( $offset ) + ( $gutter * 1.5 ) );
@@ -90,9 +90,9 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
 //
 // $span: default 1; Determins the width of the column;
 // $type: default none; has three available options
-// 		  push: pushes column to the left by the specified amount of columns
-//		  pull: pulls a column to the right by a specified amount of columns
-//		  center: centers a column of the desired size in the container
+//                push: pushes column to the left by the specified amount of columns
+//                pull: pulls a column to the right by a specified amount of columns
+//                center: centers a column of the desired size in the container
 //
 // $offset: default 0; determines the amount by which push and pull offset the column
 // $last: default false; if true the column will be floated to the left
@@ -150,7 +150,10 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
         *width: ( $total_width / $width ) - $margin - $ie_correction;
         *margin: 0 0 ( $margin - $ie_correction ) ( $margin - $ie_correction );
         &:nth-child( #{$width}n + #{$width}) {
-                float: right;
+            float: right;
+        }
+        &:nth-child( #{$width}n + #{$width+1}) {
+            clear: both;
         }
     }
 }
