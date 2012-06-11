@@ -30,6 +30,13 @@ $ie_correction: (.5 / $min_width) * 100 * 1%;
     *zoom:1;
 }
 
+// set box sizing for all elements
+// http://paulirish.com/2012/box-sizing-border-box-ftw/
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
 // Sets up a container for individual columns
 // row width and margin calculation based on Tyler Tate's Semantic.gs
 @mixin row() {
