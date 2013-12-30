@@ -1,0 +1,24 @@
+{
+  "name": "elemental-grid",
+  "version": "0.0.1",
+  "authors": [
+    "Jeremy Cloutier"
+  ],
+  "description": "Sass based custom grid system. Roll your own grid layouts.",
+  "main": "_elemental-grid.scss",
+  "keywords": [
+    "sass",
+    "grid",
+    "css",
+    "css",
+    "grid"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

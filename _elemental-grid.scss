@@ -1,0 +1,75 @@
+$elemental-grid-padding: 8px;
+$elemental-grid-margin: 0px auto;
+$elemental-grid-medium-breakpoint: 768px;
+$elemental-grid-small-breakpoint: 490px;
+$elemental-grid-default-column-name: 'col';
+$elemental-grid-layouts: 3,4,12;
+
+@mixin build-grid($columns, $prefix: '') {
+    $count: 1;
+    
+    @while $count < $columns {
+        .#{$prefix}col-#{$count}-#{$columns} {
+            width: (100% / $columns) * $count;
+        }
+        $count: $count + 1;
+    }
+}
+
+@mixin generate-layout($layouts: $elemental-grid-layouts, $prefix: '') {
+  
+    @if $prefix != '' {
+        $prefix: $prefix + "-";
+    } @else {
+        $prefix: '';
+    }
+
+    [class*='#{$prefix}#{$elemental-grid-default-column-name}-'] {
+        float: left;
+    }
+  
+    .rtl > [class*='#{$prefix}#{$elemental-grid-default-column-name}-'] {
+        float: right;
+    }
+    
+    @each $layout in $layouts {
+        @include build-grid($layout, $prefix);
+    }
+    
+    .#{$prefix}#{$elemental-grid-default-column-name}-1 {
+        width: 100%;
+    }
+    
+    .#{$prefix}#{$elemental-grid-default-column-name}-1-2 {
+        width: 50%;
+    }
+}
+
+@mixin grid-default() {
+    *, *:after, *:before {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    
+    .row {
+        width: 100%;
+        margin: $elemental-grid-margin;
+        padding: $elemental-grid-padding 0 0 $elemental-grid-padding;
+    }
+    
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    
+    // small screen grid
+    [class*='#{$elemental-grid-default-column-name}-'] {
+        padding-right: $elemental-grid-padding;
+        width: 100%;
+        display: block;
+        float: none;
+        margin-bottom: $elemental-grid-padding;
+    }
+}

@@ -3,3 +3,4 @@
 *.html
 stylesheets/
 .project
+bower_components/
