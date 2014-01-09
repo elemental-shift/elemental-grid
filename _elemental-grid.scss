@@ -1,113 +1,27 @@
-$elemental-grid-padding: 10px;
-$elemental-grid-gutter: 10px;
-$elemental-grid-column-margin-top: 0px;
-$elemental-grid-column-margin-bottom: 5px;
-$elemental-grid-default-column-name: 'col';
-$elemental-grid-layouts: 12;
+$grid-gutter: 20px;
+$grid-default-column-identifier: 'column';
+$grid-default-row-identifier: 'row';
+$grid-source-order-identifier: 'reverse';
+$grid-default-center-identifier: 'center';
+$grid-default-column-prefix: 'large';
+$grid-default-direction: 'ltr';
+$grid-enable-source-ordering: false;
+$grid-enable-push: false;
+$grid-enable-pull: false;
+$grid-enable-centering: false;
+$grid-enable-border-box: true;
+$grid-default-layouts: 12;
 
-@mixin build-grid($columns, $prefix: '') {
-    $count: 1;
 
-    @while $count < $columns {
-        .#{$prefix}#{$count}-#{$columns} {
-            width: (100% / $columns) * $count;
-            padding-left: $elemental-grid-gutter;
-        }
-        $count: $count + 1;
-    }
-}
+@import 'components/functions';
+@import 'components/grid-mixins';
+@import 'components/grid-generator';
 
-@mixin generate-layout($layouts: $elemental-grid-layouts, $prefix: '') {
-
-    // normalize prefix and default to default column name if none given
-    @if $prefix != '' {
-        $prefix: $prefix + "-";
-    } @else {
-        $prefix: '#{$elemental-grid-default-column-name}-';
-    }
-
-    // remove padding from first grid element
-    [class*='#{$prefix}'] {
-        margin: $elemental-grid-column-margin-top 0 $elemental-grid-column-margin-bottom;
-        &:first-of-type {
-            padding-left: 0;
-        }
-        &:last-of-type {
-            float: right;
-        }
-    }
-
-    // add support for right to left grids
-    .rtl > [class*='#{$prefix}'] {
-        float: right;
-        padding-right: $elemental-grid-gutter;
-        padding-left: 0;
-        &:first-of-type {
-            padding-right: 0;
-        }
-        &:last-of-type {
-            float: left;
-        }
-    }
-
-    // generate grids for provided layouts
-    @each $layout in $layouts {
-        @include build-grid($layout, $prefix);
-    }
-
-    // provide one column element
-    .#{$prefix}1 {
-        width: 100%;
-        padding-left: $elemental-grid-gutter;
-    }
-
-    // provide 1/2 column element
-    .#{$prefix}1-2 {
-        width: 50%;
-        padding-left: $elemental-grid-gutter;
-    }
-
-    // Select first non classed element and remove padding
-    [class^='#{$elemental-grid-default-column-name}-']:not([class*="#{$prefix}"]) + [class*="#{$prefix}"] {
-        padding-left: 0;
-    }
-
-    // Select first non classed element and remove padding for right to left layout
-    .rtl > [class^='#{$elemental-grid-default-column-name}-']:not([class*="#{$prefix}"]) + [class*="#{$prefix}"] {
-        padding-right: 0;
-    }
-
-    .#{$prefix}first {
-        padding: 0 !important;
-    }
-}
-
-@mixin grid-default() {
+// Include border box sizing for proper grid rendering
+@if $grid-enable-border-box == true {
     *, *:after, *:before {
         -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
+           -moz-box-sizing: border-box;
+                box-sizing: border-box;
     }
-
-    .row {
-        width: 100%;
-        &.pad {
-            padding: $elemental-grid-padding;
-        }
-    }
-
-    .row:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-
-    // small screen grid
-    [class*='#{$elemental-grid-default-column-name}-'] {
-        width: 100%;
-        display: block;
-        float: left;
-        margin: $elemental-grid-column-margin-top 0 $elemental-grid-column-margin-bottom;
-    }
-
 }

@@ -1,0 +1,152 @@
+// grid-generator.scss
+//
+// Mixins for generating a css class based grid system
+
+
+// Establishes default styles for the grid rows, and columns. Sets up default
+// gutters and defaults elements to full width.
+@mixin grid-default() {
+    
+    // Default row styling
+    .#{$grid-default-row-identifier} {
+        @include grid-row();
+    }
+
+    // Default column styling
+    .#{$grid-default-column-identifier} {
+        display: block;
+        float: if($grid-default-direction == 'ltr', left, right);
+        padding-left: calculate-gutter();
+        padding-right: calculate-gutter();
+        width: 100%;
+        position: relative;
+    }
+
+}
+
+
+// Generates layouts from a list of desired grid sizes
+@mixin generate-layout($layouts: $grid-default-layouts, $prefix: '') {
+
+    // normalize prefix and default to default column name if none given
+    @if $prefix != '' {
+        $prefix: $prefix + "-";
+    } @else {
+        $prefix: '#{$grid-default-column-prefix}-';
+    }
+
+    // float last element in opposite direction from the rest of the grid flow
+    // .column
+    .#{$grid-default-column-identifier} {
+        & + .#{$grid-default-column-identifier}:last-of-type {
+            float: if($grid-default-direction == 'ltr', right, left);
+        }
+    }
+    
+    // generte reverse classes if source ordering is enabled.
+    @if $grid-enable-source-ordering == true {
+        // .reverse > .col 
+        .#{$grid-source-order-identifier} > .#{$grid-default-column-identifier} {
+            float: if($grid-default-direction == 'ltr', right, left);
+        }
+        
+        // .reverse > .col + .col:last-of-type()
+        .#{$grid-source-order-identifier} > .#{$grid-default-column-identifier} + .#{$grid-default-column-identifier}:last-of-type {
+            float: if($grid-default-direction == 'ltr', left, right);
+        }
+    }
+    
+    // provide one column element
+    // .large-1
+    .#{$prefix}1 {
+        width: 100%;
+    }
+
+    // generate grids for given layouts
+    @each $columns in $layouts {
+        $count: 1;
+        // build default layout classes
+        @while $count < $columns {
+            // .large-1-12 etc...
+            .#{$prefix}#{$count}-#{$columns} {
+                width: calculate-column-width($count, $columns);
+            }
+            $count: $count + 1;
+        }
+        
+        // If push is enabled generate push classes
+        @if $grid-enable-push == true {
+            $count: 1;
+            @while $count < $columns {
+                // .row:not(.reverse) > .large-push-1-12 etc..
+                .#{$grid-default-row-identifier}:not(.#{$grid-source-order-identifier}) > .#{$prefix}push-#{$count}-#{$columns} {
+                    // determine grid direction
+                    @if $grid-default-direction == 'ltr' {
+                        margin-left: calculate-column-width($count, $columns);
+                    } @else {
+                        margin-right: calculate-column-width($count, $columns);
+                    }
+                }
+                $count: $count + 1;
+            }
+            
+            // If source ordering support is enabled generate relevant push classes
+            @if $grid-enable-source-ordering == true {
+                $count: 1;
+                @while $count < $columns {
+                    // .row.reverse > .large-push-1-12 etc..
+                    .#{$grid-default-row-identifier}.#{$grid-source-order-identifier} > .#{$prefix}push-#{$count}-#{$columns} {
+                        // determine grid direction
+                        @if $grid-default-direction == 'ltr' {
+                            margin-right: calculate-column-width($count, $columns);
+                        } @else {
+                            margin-left: calculate-column-width($count, $columns);
+                        }
+                    }
+                  $count: $count + 1;
+                }
+            }
+        }
+        
+        // If pull is enabled generate relevant classes
+        @if $grid-enable-pull == true {
+            $count: 1;
+            @while $count < $columns {
+                // .row:not(.reverse) > .large-pull-1-12 etc..
+                .#{$grid-default-row-identifier}:not(.#{$grid-source-order-identifier}) > .#{$prefix}pull-#{$count}-#{$columns} {
+                    // determine grid direction
+                    @if $grid-default-direction == 'ltr' {
+                        margin-right: calculate-column-width($count, $columns);
+                    } @else {
+                        margin-left: calculate-column-width($count, $columns);
+                    }
+                }
+                $count: $count + 1;
+            }
+            
+            // If source ordering is enabled
+            @if $grid-enable-source-ordering == true {
+                $count: 1;
+                @while $count < $columns {
+                    // .row.reverse > .large-pull-1-12 etc..
+                    .#{$grid-default-row-identifier}.#{$grid-source-order-identifier} > .#{$prefix}pull-#{$count}-#{$columns} {
+                        // determine grid direction
+                        @if $grid-default-direction == 'ltr' {
+                            margin-left: calculate-column-width($count, $columns);
+                        } @else {
+                            margin-right: calculate-column-width($count, $columns);
+                        }
+                    }
+                  $count: $count + 1;
+                }
+            }
+        }
+    }
+    
+    // If centering support is enabled generate relevant class
+    @if $grid-enable-centering == true {
+        .#{$prefix}#{$grid-default-center-identifier} {
+            @include grid-center();
+        }
+    }
+}
