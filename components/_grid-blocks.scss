@@ -1,0 +1,6 @@
+@mixin grid-block($blocks) {
+  @include grid-column(1, $blocks);
+  &:nth-of-type(#{$blocks}n+#{$blocks + 1}) {
+    clear: both;
+  }
+}

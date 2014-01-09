@@ -26,6 +26,7 @@
 
 
 // Generates layouts from a list of desired grid sizes
+<<<<<<< HEAD
 @mixin generate-layout($layouts: $grid-default-layouts, $prefix: '') {
 
     // normalize prefix and default to default column name if none given
@@ -35,6 +36,13 @@
         $prefix: '#{$grid-default-column-prefix}-';
     }
 
+=======
+@mixin generate-columns($layouts: $grid-default-layouts, $prefix: '') {
+
+    // normalize prefix and default to default column name if none given
+    $prefix: normalize-prefix($prefix);
+    
+>>>>>>> d3b642818f3f900d273442e380584705e4f25b33
     // float last element in opposite direction from the rest of the grid flow
     // .column
     .#{$grid-default-column-identifier} {
@@ -149,4 +157,8 @@
             @include grid-center();
         }
     }
+}
+
+@mixin genrate-blocks($layouts: 4, $prefix: $grid-default-layouts, $element: 'li') {
+    $prefix: normalize-prefix($prefix);
 }
