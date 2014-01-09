@@ -1,0 +1,6 @@
+@mixin grid-block($blocks, $element: "div") {
+  @include grid-column(1, $blocks);
+  &:nth-of-type(5n+6) {
+    color: red;
+  }
+}

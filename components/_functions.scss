@@ -1,0 +1,19 @@
+// Functions
+@function calculate-column-width($columns, $total) {
+  $width: (100% / $total) * $columns;
+  @return $width;
+}
+@function calculate-gutter() {
+    $gutter: $grid-gutter / 2;
+    @return $gutter;
+}
+
+@function normalize-prefix($prefix) {
+    // normalize prefix and default to default column name if none given
+    @if $prefix != '' {
+        $prefix: $prefix + "-";
+    } @else {
+        $prefix: '#{$grid-default-column-prefix}-';
+    }
+    @return $prefix
+}
